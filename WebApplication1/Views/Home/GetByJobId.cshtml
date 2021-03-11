@@ -1,0 +1,50 @@
+﻿@model WebApplication1.Models.APIResponse
+
+    <h4>APIResponse</h4>
+    <hr />
+    @using (Html.BeginForm("CreateJob", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Job Details</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div>
+                @Html.HiddenFor(model => model.JobId)
+                @Html.Label("JobId")
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(model => model.JobId, new { disabled = "true" })
+            </div>
+            <div>
+                @Html.Label("Enter comms seperated string input")
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(model => model.StrArray)
+            </div>
+
+        </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" id="Submit" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+<div>
+    @Html.Label("Soted Array")
+    @if (Model.Array != null && Model.Array.Count() > 0)
+    {
+    @for (int i = 0; i < Model.Array.Count(); i++)
+    {
+        <span>@Model.Array[i]&nbsp;</span>
+    }
+    }
+</div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>

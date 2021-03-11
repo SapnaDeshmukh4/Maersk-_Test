@@ -1,0 +1,59 @@
+﻿@model FromAPIResponse
+
+@{
+    ViewData["Title"] = "SortArrayDetails";
+}
+<script src="~/Scripts/JobDetails.js"></script>
+
+<h1>SortArrayDetails</h1>
+<div id="AddEdit">
+
+</div>
+<p>
+    <a href="@Url.Action("GetByJobId", "Home")"> Add Job</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.lstaPIResponses[0].JobId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lstaPIResponses[0].timestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lstaPIResponses[0].Array)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.lstaPIResponses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.timestamp)
+                </td>
+                <td>
+                    @for (int i = 0; i < item.Array.Count(); i++)
+                    {
+                        <span>@item.Array[i]&nbsp;</span>
+                    }
+
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "GetByJobId", "", new { id = item.JobId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script  type="text/javascript">
+        window.GetForm = "@Url.Action("GetJobById", "Home")";
+    $(function () {
+        JobDetails.Load();
+    });
+</script>
